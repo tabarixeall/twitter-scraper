@@ -64,7 +64,7 @@ You can use this library to get tweets, profiles, and trends trivially.
 ## Installation
 
 ```shell
-go get -u github.com/imperatrona/twitter-scraper
+go get -u github.com/tabarixeall/twitter-scraper
 ```
 
 ## Quick start
