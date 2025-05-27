@@ -37,6 +37,7 @@ func (s *Scraper) newRequest(method string, url string) (*http.Request, error) {
 	q.Add("include_ext_has_nft_avatar", "1")
 	q.Add("include_ext_is_blue_verified", "1")
 	q.Add("include_ext_verified_type", "1")
+	q.Add("include_ext_verified_type", "1")
 	q.Add("skip_status", "1")
 	q.Add("cards_platform", "Web-12")
 	q.Add("include_cards", "1")
