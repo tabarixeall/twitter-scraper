@@ -1,5 +1,4 @@
-module github.com/tabarixeall/twitter-scraper
-
+module github.com/yourusername/twitter-scraper
 go 1.16
 
 require (
