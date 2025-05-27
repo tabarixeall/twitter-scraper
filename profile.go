@@ -23,6 +23,7 @@ type Profile struct {
 	FriendsCount         int
 	IsPrivate            bool
 	IsVerified           bool
+	VerifiedType         string
 	IsBlueVerified       bool
 	Joined               *time.Time
 	LikesCount           int
