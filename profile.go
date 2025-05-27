@@ -122,6 +122,7 @@ func (s *Scraper) GetProfile(username string) (Profile, error) {
 
 	profile := parseProfile(jsn.Data.User.Result.Legacy)
 	profile.IsBlueVerified = jsn.Data.User.Result.IsBlueVerified
+	profile.VerifiedType = jsn.Data.User.Result.VerifiedType
 	return profile, nil
 }
 
@@ -181,6 +182,8 @@ func (s *Scraper) GetProfileByID(userID string) (Profile, error) {
 
 	profile := parseProfile(jsn.Data.User.Result.Legacy)
 	profile.IsBlueVerified = jsn.Data.User.Result.IsBlueVerified
+	profile.VerifiedType = jsn.Data.User.Result.VerifiedType
+
 	return profile, nil
 }
 
