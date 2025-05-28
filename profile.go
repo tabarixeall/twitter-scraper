@@ -1,6 +1,7 @@
 package twitterscraper
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -23,7 +24,6 @@ type Profile struct {
 	FriendsCount         int
 	IsPrivate            bool
 	IsVerified           bool
-	VerifiedType         string
 	IsBlueVerified       bool
 	Joined               *time.Time
 	LikesCount           int
@@ -101,6 +101,14 @@ func (s *Scraper) GetProfile(username string) (Profile, error) {
 		return Profile{}, err
 	}
 
+	// Print the full API response
+	prettyJSON, err := json.MarshalIndent(jsn, "", "  ")
+	if err != nil {
+		fmt.Printf("Error marshaling JSON response: %v\n", err)
+	} else {
+		fmt.Printf("API Response for username %s:\n%s\n", username, string(prettyJSON))
+	}
+
 	if len(jsn.Errors) > 0 && jsn.Data.User.Result.RestID == "" {
 		if strings.Contains(jsn.Errors[0].Message, "Missing LdapGroup(visibility-custom-suspension)") {
 			return Profile{}, fmt.Errorf("user is suspended")
@@ -122,7 +130,6 @@ func (s *Scraper) GetProfile(username string) (Profile, error) {
 
 	profile := parseProfile(jsn.Data.User.Result.Legacy)
 	profile.IsBlueVerified = jsn.Data.User.Result.IsBlueVerified
-	profile.VerifiedType = jsn.Data.User.Result.VerifiedType
 	return profile, nil
 }
 
@@ -161,6 +168,14 @@ func (s *Scraper) GetProfileByID(userID string) (Profile, error) {
 		return Profile{}, err
 	}
 
+	// Print the full API response
+	prettyJSON, err := json.MarshalIndent(jsn, "", "  ")
+	if err != nil {
+		fmt.Printf("Error marshaling JSON response: %v\n", err)
+	} else {
+		fmt.Printf("API Response for userID %s:\n%s\n", userID, string(prettyJSON))
+	}
+
 	if len(jsn.Errors) > 0 && jsn.Data.User.Result.RestID == "" {
 		if strings.Contains(jsn.Errors[0].Message, "Missing LdapGroup(visibility-custom-suspension)") {
 			return Profile{}, fmt.Errorf("user is suspended")
@@ -182,7 +197,6 @@ func (s *Scraper) GetProfileByID(userID string) (Profile, error) {
 
 	profile := parseProfile(jsn.Data.User.Result.Legacy)
 	profile.IsBlueVerified = jsn.Data.User.Result.IsBlueVerified
-	profile.VerifiedType = jsn.Data.User.Result.VerifiedType
 
 	return profile, nil
 }
